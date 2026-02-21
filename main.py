@@ -12,8 +12,11 @@ n = 100000    # Número de simulações (O quanto seu PC aguentar)
 soma_payoffs = 0
 
 # Função para a Distribuição Normal Acumulada (N(x))
+
+
 def norm_cdf(x):
     return (1.0 + math.erf(x / math.sqrt(2.0))) / 2.0
+
 
 # --- Cálculo de Black-Scholes ---
 d1 = (math.log(S0 / K) + (r + 0.5 * sigma**2) * T) / (sigma * math.sqrt(T))
@@ -25,10 +28,10 @@ bs_price = S0 * norm_cdf(d1) - K * math.exp(-r * T) * norm_cdf(d2)
 for _ in range(n):
     # Gera um número aleatório da Normal Padrão Z ~ N(0,1)
     Z = random.gauss(0, 1)
-    
+
     # Fórmula do Movimento Browniano Geométrico (GBM)
     ST = S0 * math.exp((r - 0.5 * sigma**2) * T + sigma * math.sqrt(T) * Z)
-    
+
     # Payoff da Call: max(ST - K, 0)
     payoff = max(ST - K, 0)
     soma_payoffs += payoff
